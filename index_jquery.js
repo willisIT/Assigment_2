@@ -36,7 +36,22 @@ $(document).ready(function(){
             });
         }
         
-    );
+    )
+    .fail(function (e) {
+        console.log(e);
+        $(".loader").css("display", "none");
+        list_elements.append(`
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <span class="display-1 d-block text-primary fw-bold">${e.status}</span>
+                        <div class="mb-4 lead">${e.statusText}</div>
+                        <button class="btn btn-primary" onclick="location.reload()">Refresh</button>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
 
     function appendData(data) {
 
@@ -74,7 +89,6 @@ $(document).ready(function(){
       }
 
     function rangeUsersPerPage(index, item) {
-        console.log("index: ", index);
         if(!index) {
           startOfList = 0;
           endOfList = userPerPage;
