@@ -1,4 +1,10 @@
 var retrievedData = [];
+const paginationControls = document.querySelectorAll("li.page-item");
+let userPerPage = 30;
+let startOfList = 0;
+let endOfList = userPerPage;
+let previousItem = paginationControls[0];
+
 $(document).ready(function(){
     const list_elements = $("#card_items");
     
@@ -8,7 +14,10 @@ $(document).ready(function(){
             var count=0;
             retrievedData = data;
             // console.log(data);
-            appendData(data);
+
+            controls(paginationControls);
+
+            appendData(retrievedData);
             $(".loader").css("display", "none");
 
             $("#button").click(function (e) { 
@@ -30,13 +39,15 @@ $(document).ready(function(){
     );
 
     function appendData(data) {
-        data.forEach((element, index) => {
+
+        list_elements.empty();
+        data.slice(startOfList, endOfList).forEach((element, index) => {
             list_elements.append(`
             <div class="col-md-3 col-12 mb-5">
                 <div class="card _card">
                     <img class="card-img-top p-2" src="./asset/laptop.jpg" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <h5 class="card-title d-flex flex-wrap justify-content-between align-items-center">
                         ${element.modelname}
                             <span style="background: #007bff;" class="badge badge-pill">${element.ram}</span>
                         </h5>
@@ -50,6 +61,30 @@ $(document).ready(function(){
         });
         
     }
+
+    function controls(paginationControls) {
+        paginationControls.forEach(function(item, index){
+            item.addEventListener('click', function(){
+                previousItem.classList.remove('active');
+                rangeUsersPerPage(index, item);
+                appendData(retrievedData);
+                previousItem = item;
+            });
+        });  
+      }
+
+    function rangeUsersPerPage(index, item) {
+        console.log("index: ", index);
+        if(!index) {
+          startOfList = 0;
+          endOfList = userPerPage;
+          item.classList.add('active');
+        }else {
+          item.classList.add('active');
+          startOfList = userPerPage * index;
+          endOfList = startOfList + userPerPage;
+        }
+      }
 
     function filterItems(items, searchVal) {
         var newArray = [];
