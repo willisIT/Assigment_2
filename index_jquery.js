@@ -32,8 +32,8 @@ $(document).ready(function(){
     function appendData(data) {
         data.forEach((element, index) => {
             list_elements.append(`
-            <div class="col-md-4 col-12 mb-5">
-                <div class="card">
+            <div class="col-md-3 col-12 mb-5">
+                <div class="card _card">
                     <img class="card-img-top p-2" src="./asset/laptop.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title d-flex justify-content-between align-items-center">

@@ -20,18 +20,3 @@ $(document).ready(function () {
         
     `);
 });
-
-
-// manufacturer	string	-
-// modelname	string	-
-// category	string	-
-// screensize	string	-
-// screen	string	-
-// cpu	string	-
-// ram	string	-
-// storage	string	-
-// gpu	string	-
-// operatingsystem	string	-
-// operatingsystemversion	string	-
-// weight	string	-
-// priceeuros
